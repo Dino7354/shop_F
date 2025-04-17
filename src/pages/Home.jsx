@@ -8,7 +8,7 @@ import {
   headContentAnimation,
   headTextAnimation,
   slideAnimation,
-} from '../confiq/motion';
+} from '../config/motion';
 
 const Home = () => {
   const snap = useSnapshot(state);
