@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSnapshot } from 'valtio'
 import state from '../store'
+import "../../src/index.css"
 
 
 const tab = ({ tab, isFilterTab, isActiveTab, handleClick }) => {
@@ -10,11 +11,11 @@ const tab = ({ tab, isFilterTab, isActiveTab, handleClick }) => {
 
   return (
     <div
-      key={tab.name}
-      className={`tab-btn ${isFilterTab ? 'rounded-full glassmorphism' : 'rounded-4'}`}
-      onClick={handleClick}
-      style={activeStyles}
-    >
+    key={tab.name}
+    className={`tab-btn ${isFilterTab ? 'rounded-full glassmorphism' : 'rounded-4'}`}
+    onClick={handleClick}
+    style={activeStyles}
+  >
       <img
         src={tab.icon}
         alt={tab.name}
