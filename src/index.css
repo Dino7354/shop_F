@@ -1,10 +1,13 @@
+/* Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap");
 @import url("https://rsms.me/inter/inter.css");
 
+/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Font family */
 html {
   font-family: "Inter", sans-serif;
 }
@@ -15,11 +18,12 @@ html {
   }
 }
 
+/* Utility Classes */
 .app {
   @apply relative w-full h-screen overflow-hidden;
 }
 
-home {
+.home {
   @apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
 }
 
@@ -63,6 +67,7 @@ home {
   @apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
 }
 
+/* Custom Glassmorphism Effect */
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07);
@@ -71,12 +76,14 @@ home {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+/* File input visibility */
 input[type="file"] {
   z-index: -1;
   position: absolute;
   opacity: 0;
 }
 
+/* Sketch Picker Styling */
 .sketch-picker {
   width: 170px !important;
   background: rgba(255, 255, 255, 0.25) !important;
@@ -87,6 +94,7 @@ input[type="file"] {
   border-radius: 6px !important;
 }
 
+/* Hide alpha slider in Sketch Picker */
 .sketch-picker > div:nth-child(3) {
   display: none !important;
 }

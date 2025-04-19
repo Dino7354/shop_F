@@ -105,7 +105,7 @@ const readFile = (type) => {
 
   return (
     <AnimatePresence>
-      {!snapshot.intro && (
+      {!snap.intro && (
         <>
           <motion.div
           key="custom"
