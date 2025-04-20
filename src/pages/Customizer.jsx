@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import  Config  from '../config/config';
 import state from '../store';
-// import { download } from '../assets/download';
+import { download } from '../assets/index';
 import { downloadCanvasToImage, reader } from '../config/helpers'
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants'
 import { fadeAnimation, slideAnimation } from '../config/motion'  
