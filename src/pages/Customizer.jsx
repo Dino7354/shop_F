@@ -38,7 +38,7 @@ const generateTabContent = () => {
       prompt={prompt} 
       setPrompt={setPrompt} 
       generatingImg={generatingImg} 
-      handleSubmit={handleSubmit} />;
+      handleSubmit={handleSubmit} />
     case 'colorpicker':
       return <ColorPicker />;
     default:
@@ -51,7 +51,24 @@ const handleSubmit = async (type) => {
   if(!prompt) return alert('Please enter a prompt');
 
   try {
-    // call oir backend to generate an at image!
+    setGeneratingImg(true);
+
+    const response = await fetch('http://localhost:2050/api/v1/generations',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt,
+      })
+
+    })
+    const data = await response.json();
+    if (data.photo) {
+      handleDecals(type, `data:image/png;base64,${data.photo}`);
+    } else {
+      alert('Failed to generate image. Please try again.');
+    }   
   } catch (error) {
     alert(error);
 
