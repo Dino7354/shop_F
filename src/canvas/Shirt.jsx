@@ -1,4 +1,5 @@
 import React from 'react';
+import * as THREE from 'three';
 import { easing } from 'maath';
 import { useFrame } from '@react-three/fiber';
 import { useSnapshot } from 'valtio';
@@ -12,20 +13,18 @@ const Shirt = () => {
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
 
-  // Optimize anisotropy
-  if (logoTexture) {
-    logoTexture.anisotropy = 4; // Reduced anisotropy
-  }
-  if (fullTexture) {
-    fullTexture.anisotropy = 4; // Reduced anisotropy
-  }
+  if (logoTexture) logoTexture.anisotropy = 4;
+  if (fullTexture) fullTexture.anisotropy = 4;
 
-  // Optimize useFrame
-  let lastColor = null;
+
   useFrame((state, delta) => {
-    if (materials?.lambert1?.color && snap.color !== lastColor) {
-      easing.dampC(materials.lambert1.color, snap.color, 0.25, delta);
-      lastColor = snap.color;
+    if (materials['Material.001']?.color) {
+      easing.dampC(
+        materials['Material.001'].color,
+        new THREE.Color(snap.color),
+        0.25,
+        delta
+      );
     }
   });
 
