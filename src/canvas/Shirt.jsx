@@ -10,17 +10,19 @@ const Shirt = () => {
   const snap = useSnapshot(state);
   const { nodes, materials } = useGLTF('/shirt_baked.glb');
 
+  // Automatically pick the first material
+  const material = Object.values(materials)[0];
+
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
 
   if (logoTexture) logoTexture.anisotropy = 4;
   if (fullTexture) fullTexture.anisotropy = 4;
 
-
   useFrame((state, delta) => {
-    if (materials['Material.001']?.color) {
+    if (material?.color) {
       easing.dampC(
-        materials['Material.001'].color,
+        material.color,
         new THREE.Color(snap.color),
         0.25,
         delta
@@ -35,7 +37,7 @@ const Shirt = () => {
       <mesh
         castShadow
         geometry={nodes.T_Shirt_male.geometry}
-        material={materials['Material.001']}
+        material={material}
         material-roughness={1}
         dispose={null}
       >
