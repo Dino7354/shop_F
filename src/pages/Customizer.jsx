@@ -48,6 +48,7 @@ const Customizer = () => {
   }
 
   const handleSubmit = async (type) => {
+    console.log('handleSubmit type:', type);
     if(!prompt) return alert("Please enter a prompt");
 
     try {
@@ -61,8 +62,13 @@ const Customizer = () => {
       
 
       const data = await response.json();
+      console.log('API response:', data);
 
-      handleDecals(type, `data:image/png;base64,${data.photo}`)
+      if (response.ok) {
+        handleDecals(type, `data:image/png;base64,${data.photo}`);
+      } else {
+        alert(`Error: ${data.message}`);
+      }
     } catch (error) {
       alert("Error generating image");
       console.error(error);
@@ -70,10 +76,16 @@ const Customizer = () => {
       setGeneratingImg(false);
       setActiveEditorTab("");
     }
-  }
+  };
 
   const handleDecals = (type, result) => {
     const decalType = DecalTypes[type];
+    if (!decalType) {
+      console.error(`Invalid type: ${type}`); // Debugging
+      alert(`Invalid decal type: ${type}`);
+      return;
+    }
+  
 
     state[decalType.stateProperty] = result;
 
@@ -142,6 +154,18 @@ const Customizer = () => {
             className="absolute z-10 top-5 right-5"
             {...fadeAnimation}
           >
+            <CustomButton
+  type='outline'
+  title='AI Logo'
+  handleClick={() => handleSubmit('logo')} // Matches DecalTypes key
+  customStyles='text-xs'
+/>
+<CustomButton
+  type='filled'
+  title='AI Full'
+  handleClick={() => handleSubmit('full')} // Matches DecalTypes key
+  customStyles='text-xs'
+/>
             <CustomButton 
               type="filled"
               title="Go Back"
