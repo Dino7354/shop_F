@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import * as THREE from 'three';
 import { easing } from 'maath';
 import { useFrame } from '@react-three/fiber';
@@ -8,11 +8,10 @@ import state from '../store';
 
 const Shirt = () => {
   const snap = useSnapshot(state);
+  const group = useRef(); // ref for smooth rotation
   const { nodes, materials } = useGLTF('/shirt_baked.glb');
 
-  // Automatically pick the first material
-  const material = Object.values(materials)[0];
-
+  const material = Object.values(materials)[0]; // Use the first material
   const logoTexture = useTexture(snap.logoDecal);
   const fullTexture = useTexture(snap.fullDecal);
 
@@ -28,12 +27,17 @@ const Shirt = () => {
         delta
       );
     }
+
+    // Smooth idle rotation (optional - looks alive)
+    if (group.current) {
+      group.current.rotation.y = Math.sin(state.clock.getElapsedTime() / 2) / 8;
+    }
   });
 
   const StateString = JSON.stringify(snap);
 
   return (
-    <group key={StateString}>
+    <group ref={group} key={StateString}>
       <mesh
         castShadow
         geometry={nodes.T_Shirt_male.geometry}
